@@ -5,6 +5,8 @@ import { BiPound } from 'react-icons/bi'
 export const SubCategories = styled.div`
     display: ${props => props.display};
     justify-content: space-around;
+    background-color: white;
+    border-radius: 1rem;
 `
 
 export const SubCatColumns = styled.div`
@@ -48,13 +50,33 @@ export const SubCatInputs = styled.div`
     }
 `
 
-export const Categories = styled.div`
+export const CategoriesTitle = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    h2 {
+      &:active {
+        color: dodgerblue;
+        text-decoration: underline;
+      }
+    }
 `
 
 export const Pound = styled(BiPound)`
     position: absolute;
     left: 4px;
+`
+
+export const ToggleButton = styled.div`
+    display: flex;
+    align-items: center;
+
+    p {
+      margin-right: 2rem;
+    }
+`
+
+export const CategoryWrap = styled.div`
+
 `

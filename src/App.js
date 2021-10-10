@@ -1,12 +1,15 @@
-import { AppWrap,  ChevronDown, ChevronUp, Title } from './App.style'
-import { Categories, SubCategories, Pound, SubCatTitle, SubCatInputs } from './Category.style'
+import { AppWrap,  ChevronDown, ChevronUp, Title } from './components/App.style'
 import { useState } from 'react'
+import Categories from './components/Categories'
+import Equipment from './components/Equipment'
+import Calculations from './components/Calculations'
+import Links from './components/Links'
 
 function App() {
   const profitMargin = 0.2
 
-  const [ categories, setCategories] = useState([
-    { id: 1, title: "Materials", toggle: false },
+  const [categories, setCategories] = useState([
+    { id: 1, title: "Materials", toggle: true },
     { id: 2, title: "Plant Hire", toggle: false },
     { id: 3, title: "Drainage", toggle: false },
     { id: 4, title: "Building", toggle: false },
@@ -35,146 +38,13 @@ function App() {
     { title: "Transit", price: 10 }
   ]
 
-  const toggleSubCategory = (id) => {
-    var index = categories.findIndex(category => category.id === id);
-    let category = categories[index];
-    category.toggle = !category.toggle
-
-    setCategories([
-      ...categories.slice(0,index),
-      category,
-      ...categories.slice(index+1)
-    ]);
-  }
-
-  const selectedSubCategories = (categoryId, subCategories) => {
-    var selected = []
-    subCategories.map(subCategory => subCategory.category_id === categoryId && selected.push(subCategory))
-    return selected
-  }
-
-  const updateObject = (value, subCategoryId, price=false, active=false) => {
-    var index = subCategories.findIndex(subCategory => subCategory.id === subCategoryId);
-    let subCategory = subCategories[index];
-
-    if(price === true) {
-      subCategory.price = value
-    } else if (active === true) {
-      subCategory.active = !subCategory.active
-    } else {
-      subCategory.multi = value
-    }
-
-    setSubCategories([
-      ...subCategories.slice(0,index),
-      subCategory,
-      ...subCategories.slice(index+1)
-    ])
-  }
-
-  // const findTitles = (title) => {
-  //   var titles = []
-
-  //   if(title === "Materials") {
-  //     titles.push("Price per Tonne")
-  //     titles.push("Tonnage")
-  //   } else if(title === "Plant Hire") {
-  //     titles.push("Price per Day")
-  //     titles.push("Days")
-  //   } else if(title === "Drainage") {
-  //     titles.push("Price per Item")
-  //     titles.push("Quantity")
-  //   }
-
-  //   return titles
-  // }
-
-  const calcSerive = (service=false, nonProfit=false) => {
-    var prices = []
-    subCategories.map(sub => sub.active && prices.push(sub.price * sub.multi))
-    console.log(prices)
-    var sum = prices.reduce((a, b) => a + b, 0)
-    var calculation;
-
-    if(service) {
-      calculation = sum * profitMargin
-    } else if (nonProfit) {
-      calculation = sum
-    }
-    return calculation
-  }
-
   return (
     <AppWrap>
       <Title>Quote Calculator</Title>
-
-      {categories.map(category =>
-        <>
-          <Categories key={category.id}>
-            <h2>{category.title}</h2>
-            {category.toggle ? <ChevronUp onClick={() => toggleSubCategory(category.id)} /> : <ChevronDown onClick={() => toggleSubCategory(category.id)} />}
-          </Categories>
-
-          {/* {category.toggle && <SubCatColumns><h4>{findTitles(category.title)[0]}</h4><h4>{findTitles(category.title)[1]}</h4><h4>Non-profit</h4><h4>Profit</h4></SubCatColumns>} */}
-            {selectedSubCategories(category.id, subCategories).map(subCategory =>
-              <SubCategories key={subCategory.id} display={category.toggle ? "flex" : "none"} >
-                <SubCatTitle>
-                  <input type="checkbox" onChange={event => updateObject(event.target.value, subCategory.id, false, true)} />
-                  <h4>{subCategory.title}</h4>
-                </SubCatTitle>
-
-                <SubCatInputs>
-                  <div>
-                    <Pound></Pound>
-                    <input type="text" placeholder={subCategory.active ? subCategory.price : "-"} maxLength="7" onChange={event => updateObject(event.target.value, subCategory.id, true)} />
-                  </div>
-
-                  <input type="text" placeholder={subCategory.active ? subCategory.multi : "-"} maxLength="7" onChange={(event) => updateObject(event.target.value, subCategory.id)} />
-                  { !subCategory.active ? <p>-</p> : <p>£ {(subCategory.price * subCategory.multi).toFixed(2)}</p> }
-                  { !subCategory.active ? <p>-</p> : <p>£ {((subCategory.price * subCategory.multi) * profitMargin).toFixed(2)}</p> }
-                </SubCatInputs>
-
-              </SubCategories>
-            )}
-        </>
-      )}
-
-      {
-        equipment.map(eqip =>
-          <div>
-            <h2>{eqip.title}</h2>
-            <div>
-              £ <input type="number" value={eqip.price} />
-            </div>
-          </div>
-        )
-      }
-
-      <div>
-        <h2>Service Fee</h2>
-        <div>
-          <p>{calcSerive(true)}</p>
-        </div>
-      </div>
-
-      <div></div>
-
-      <div>
-        <div>
-          <h2>Non-Profit Charges</h2>
-          <p>{calcSerive(false, true)}</p>
-        </div>
-
-        <div>
-          <h2>Profit Charges</h2>
-          <p>{calcSerive(true)}</p>
-        </div>
-      </div>
-
-      <div>
-        <h2>Total</h2>
-        <p>£0.00</p>
-      </div>
+      <Links />
+      <Categories categories={categories} subCategories={subCategories} setSubCategories={setSubCategories} setCategories={setCategories} profitMargin={profitMargin} />
+      <Equipment equipment={equipment} />
+      <Calculations subCategories={subCategories} profitMargin={profitMargin} />
     </AppWrap>
   );
 }
