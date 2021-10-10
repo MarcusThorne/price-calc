@@ -1,4 +1,7 @@
 import React from 'react'
+import { CalculationsWrap, Total } from './Calculations.style'
+import { RiServiceLine } from 'react-icons/ri'
+import { GiPayMoney, GiReceiveMoney } from 'react-icons/gi'
 
 function Calculations({subCategories, profitMargin}) {
   const calcSerive = (service = false, nonProfit = false) => {
@@ -17,33 +20,35 @@ function Calculations({subCategories, profitMargin}) {
   }
 
   return (
-    <>
-      <div>
-        <h2>Service Fee</h2>
-        <div>
-          <p>{calcSerive(true)}</p>
-        </div>
-      </div>
-
-      <div></div>
-
+    <CalculationsWrap>
       <div>
         <div>
-          <h2>Non-Profit Charges</h2>
-          <p>{calcSerive(false, true)}</p>
+          <h4><RiServiceLine />Service Fee</h4>
+          <div>
+            <p>{calcSerive(true)}</p>
+          </div>
         </div>
+
+        <div></div>
 
         <div>
-          <h2>Profit Charges</h2>
-          <p>{calcSerive(true)}</p>
-        </div>
-      </div>
+          <div>
+            <h4><GiPayMoney />Non-Profit Charges</h4>
+            <p>{calcSerive(false, true)}</p>
+          </div>
 
-      <div>
-        <h2>Total</h2>
-        <p>£0.00</p>
+          <div>
+            <h4><GiReceiveMoney />Profit Charges</h4>
+            <p>{calcSerive(true)}</p>
+          </div>
+        </div>
+
+        <Total>
+          <h4>Total</h4>
+          <p>£0.00</p>
+        </Total>
       </div>
-    </>
+    </CalculationsWrap>
   )
 }
 

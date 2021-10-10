@@ -1,5 +1,5 @@
 import React from 'react'
-import { CategoryWrap, CategoriesTitle, SubCategories, Pound, SubCatTitle, SubCatInputs, ToggleButton } from './Category.style'
+import { CategoryWrap, CategoriesTitle, SubCategories, Pound, SubCatTitle, SubCatInputs, ToggleButton, Title, Tick } from './Category.style'
 import { BsChevronDown as ChevronDown, BsChevronUp as ChevronUp } from 'react-icons/bs'
 
 function Categories({categories, subCategories, setCategories, setSubCategories, profitMargin}) {
@@ -55,9 +55,9 @@ function Categories({categories, subCategories, setCategories, setSubCategories,
 
   return (
     <CategoryWrap>
-      <CategoriesTitle>
+      <CategoriesTitle >
         {categories.map(category =>
-          <h2 key={category.id} onClick={() => toggleSubCategory(category.id)}>{category.title}</h2>
+          <Title bgColor={category.toggle ? "white" : "#F5F6F7"} color={category.toggle ? "dodgerblue!important" : "rgb(50, 50, 50)"} border={category.toggle === true ? "2px solid dodgerblue" : "none"} key={category.id} onClick={() => toggleSubCategory(category.id)}>{category.title}</Title>
         )}
       </CategoriesTitle>
 
@@ -66,7 +66,7 @@ function Categories({categories, subCategories, setCategories, setSubCategories,
           {selectedSubCategories(category.id, subCategories).map(subCategory =>
             <SubCategories key={subCategory.id} display={category.toggle ? "flex" : "none"} >
               <SubCatTitle>
-                <input type="checkbox" onChange={event => updateObject(event.target.value, subCategory.id, false, true)} />
+                <Tick onClick={event => updateObject(event.target.value, subCategory.id, false, true)} color={subCategory.active ? "dodgerblue" : "rgba(100, 100, 100, 0.5)"} />
                 <h4>{subCategory.title}</h4>
               </SubCatTitle>
 

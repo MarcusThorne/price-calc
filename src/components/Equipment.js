@@ -4,7 +4,6 @@ import { Title, EquipmentWrap } from './Equipment.style'
 function Equipment({equipment}) {
   return (
     <>
-      <Title>Owned Equipment</Title>
       <EquipmentWrap>
         {equipment.map(eqip =>
           <div>

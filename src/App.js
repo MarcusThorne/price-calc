@@ -3,7 +3,6 @@ import { useState } from 'react'
 import Categories from './components/Categories'
 import Equipment from './components/Equipment'
 import Calculations from './components/Calculations'
-import Links from './components/Links'
 
 function App() {
   const profitMargin = 0.2
@@ -41,8 +40,9 @@ function App() {
   return (
     <AppWrap>
       <Title>Quote Calculator</Title>
-      <Links />
+      <h3>Selected Items</h3>
       <Categories categories={categories} subCategories={subCategories} setSubCategories={setSubCategories} setCategories={setCategories} profitMargin={profitMargin} />
+      <h3>Owned Equipment</h3>
       <Equipment equipment={equipment} />
       <Calculations subCategories={subCategories} profitMargin={profitMargin} />
     </AppWrap>
