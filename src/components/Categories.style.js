@@ -27,6 +27,8 @@ export const SubCatTitle = styled.div`
     display: flex;
     width: 20rem;
     align-items: center;
+        font-size: 14px;
+
 
     input {
         margin-right: 1rem;
@@ -35,7 +37,7 @@ export const SubCatTitle = styled.div`
 `
 
 export const SubCatInputs = styled.div`
-    display: grid;
+    display: ${props => props.display};
     grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: center;
     justify-content: end;
@@ -68,7 +70,7 @@ export const Title = styled.h4`
     text-align: center;
     margin: 0;
     margin-bottom: -2px;
-    font-size: 20px;
+    font-size: 16px;
     background-color: ${props => props.bgColor};
     border-radius: 10px 10px 0 0;
 `
@@ -102,3 +104,7 @@ export const CategoryWrap = styled.div`
   margin: 1rem;
   box-shadow: 1px 1px 8px rgba(50,50,50,0.1);
 `
+
+SubCatInputs.defaultProps = {
+  display: "grid",
+}

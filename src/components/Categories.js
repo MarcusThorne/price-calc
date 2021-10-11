@@ -1,13 +1,13 @@
 import React from 'react'
-import { CategoryWrap, CategoriesTitle, SubCategories, Pound, SubCatTitle, SubCatInputs, ToggleButton, Title, Tick } from './Category.style'
-import { BsChevronDown as ChevronDown, BsChevronUp as ChevronUp } from 'react-icons/bs'
+import { CategoryWrap, CategoriesTitle, SubCategories, Pound, SubCatTitle, SubCatInputs, Title, Tick } from './Categories.style'
+// import { BsChevronDown as ChevronDown, BsChevronUp as ChevronUp } from 'react-icons/bs'
 
 function Categories({categories, subCategories, setCategories, setSubCategories, profitMargin}) {
   const toggleSubCategory = (id) => {
     setFalse()
     var index = categories.findIndex(category => category.id === id);
     let category = categories[index];
-    category.toggle = true
+    category.toggle = !category.toggle
 
     setCategories([
       ...categories.slice(0, index),
@@ -38,9 +38,9 @@ function Categories({categories, subCategories, setCategories, setSubCategories,
     var index = subCategories.findIndex(subCategory => subCategory.id === subCategoryId);
     let subCategory = subCategories[index];
 
-    if (price === true) {
+    if (price) {
       subCategory.price = value
-    } else if (active === true) {
+    } else if (active) {
       subCategory.active = !subCategory.active
     } else {
       subCategory.multi = value
@@ -53,6 +53,17 @@ function Categories({categories, subCategories, setCategories, setSubCategories,
     ])
   }
 
+  const findTitles = (id) => {
+    var titles = []
+    if(id === 1){
+      titles = ["Price Per Tonne", "Quantity", "Non-Profit", "Profit"]
+    }else if(id === 2){
+      titles = ["Price Per Day", "Days", "Non-Profit", "Profit"]
+    }
+
+    return titles
+  }
+
   return (
     <CategoryWrap>
       <CategoriesTitle >
@@ -63,6 +74,12 @@ function Categories({categories, subCategories, setCategories, setSubCategories,
 
       {categories.map(category =>
         <>
+          <SubCatInputs display={category.toggle ? "grid" :"none"} style={{marginLeft: "21rem", marginTop: "1rem", textAlign: "center"}}>
+            {findTitles(category.id).map(title =>
+              <h4>{title}</h4>
+            )}
+          </SubCatInputs>
+
           {selectedSubCategories(category.id, subCategories).map(subCategory =>
             <SubCategories key={subCategory.id} display={category.toggle ? "flex" : "none"} >
               <SubCatTitle>

@@ -15,6 +15,10 @@ export const CalculationsWrap = styled.div`
   h4 {
     color: white;
   }
+
+  h2 {
+    margin-bottom: 4rem;
+  }
 `
 
 export const Cover = styled.img`
@@ -31,4 +35,29 @@ export const Contain = styled.img`
 export const Total = styled.div`
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+
+  div {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
+`
+
+export const Calculation = styled.div`
+  display: flex;
+  align-items: center;
+
+  h4 {
+    margin: 0 1rem;
+  }
+
+  div {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
 `
