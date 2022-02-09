@@ -20,6 +20,8 @@ function Calculations({subCategories, profitMargin}) {
     return calculation.toFixed(2)
   }
 
+    var total = Number(calcSerive(false, true)) + (Number(calcSerive(true)) * 2)
+
   return (
     <CalculationsWrap>
       <h2>Mark Thorne Groundworks</h2>
@@ -60,7 +62,7 @@ function Calculations({subCategories, profitMargin}) {
           <h4>Total</h4>
           <div>
             <Pound />
-            <p>0.00</p>
+            <p>{total}</p>
           </div>
         </Total>
       </div>
