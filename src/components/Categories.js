@@ -1,6 +1,5 @@
 import React from 'react'
 import { CategoryWrap, CategoriesTitle, SubCategories, Pound, SubCatTitle, SubCatInputs, Title, Tick } from './Categories.style'
-// import { BsChevronDown as ChevronDown, BsChevronUp as ChevronUp } from 'react-icons/bs'
 
 function Categories({categories, subCategories, setCategories, setSubCategories, profitMargin}) {
   const toggleSubCategory = (id) => {

@@ -61,3 +61,15 @@ export const Calculation = styled.div`
     align-items: center;
   }
 `
+
+export const List = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  margin: 0;
+  font-size: 9px;
+`
+
+export const ListedItems = styled.div`
+  margin: -40px 0 40px 0;
+`

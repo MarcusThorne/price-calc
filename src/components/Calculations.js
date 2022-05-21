@@ -1,9 +1,8 @@
 import React from 'react'
-import { CalculationsWrap, Total, Calculation } from './Calculations.style'
+import { CalculationsWrap, Total, Calculation, List, ListedItems } from './Calculations.style'
 import { RiServiceLine } from 'react-icons/ri'
 import { GiPayMoney, GiReceiveMoney } from 'react-icons/gi'
 import { BiPound as Pound } from 'react-icons/bi'
-
 
 function Calculations({subCategories, profitMargin}) {
   const calcSerive = (service = false, nonProfit = false) => {
@@ -20,11 +19,20 @@ function Calculations({subCategories, profitMargin}) {
     return calculation.toFixed(2)
   }
 
-    var total = Number(calcSerive(false, true)) + (Number(calcSerive(true)) * 2)
+  var total = Number(calcSerive(false, true)) + (Number(calcSerive(true)) * 2)
+
+  var selected = []
+  subCategories.map(sub => sub.active ? selected.push(sub) : null)
+  var showSelected = selected.map(sel => <List><p>{sel.title}</p><p><Pound /> {sel.price + sel.multi}</p></List>)
 
   return (
     <CalculationsWrap>
       <h2>Mark Thorne Groundworks</h2>
+
+      <ListedItems>
+        <h4>Listed Items</h4>
+        {showSelected}
+      </ListedItems>
 
       <div>
         <Calculation>
